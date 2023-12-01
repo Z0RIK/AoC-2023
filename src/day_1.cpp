@@ -34,7 +34,7 @@ bool compare(char* c, const std::string& number)
 
 int main(char argc, char* argv[])
 {
-
+    // reading from input file
     std::ifstream inputFile;
     std::stringstream inputStream;
     std::string inputString;
@@ -48,6 +48,7 @@ int main(char argc, char* argv[])
 
     inputFile.close();
 
+    // actual algorithm
     size_t first{69}, second{69}, result{};
 
     for(size_t i = 0; i < inputString.size(); i++)
@@ -76,8 +77,21 @@ int main(char argc, char* argv[])
         }
     }
     
-    result += first * 10 + second;
+    result += first * 10 + second; // one more add, since we exit the loop before adding last number
 
-    std::cerr << result << std::endl; 
+    // output shenanigans
+    if (argc > 2)
+    {
+        std::ofstream outputFile;
+        outputFile.open(argv[2]);
+
+        if (outputFile.is_open())
+            outputFile << result;
+
+        outputFile.close();
+    }
+    else
+        std::cerr << std::to_string(result) << std::endl; 
+
     return 0;
 }
