@@ -120,8 +120,8 @@ int main(char argc, char* argv[])
     }
     else
     {
-        std::cerr << "Part 1 result : " << part_1_result << std::endl;
-        std::cerr << "Part 2 result : " << part_2_result << std::endl;
+        std::cout << "Part 1 result : " << part_1_result << std::endl;
+        std::cout << "Part 2 result : " << part_2_result << std::endl;
     }
 
     return 0;
