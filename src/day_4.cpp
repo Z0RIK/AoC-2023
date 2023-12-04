@@ -96,7 +96,7 @@ int main(char argc, char* argv[])
         part_1_result += current_score;
     }
 
-    // part 2. pop card id from stack, increment result and push in two stack ids of next cards that we win from current one
+    // part 2. pop card id from stack, increment result and push onto stack ids of next cards that we win from current one
     while (!cards.empty())
     {
         size_t current_card = cards.top();
