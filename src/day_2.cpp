@@ -3,17 +3,16 @@
 #include <string>
 #include <string_view>
 #include <iostream>
-#include <utility>
 #include <array>
 
-std::string test = "\
+static std::string test = "\
     Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n\
     Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n\
     Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red\n\
     Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n\
     Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 
-size_t stoi(const std::string_view& str)
+static size_t stoi(const std::string_view& str)
 {
     size_t i{};
     while (i < str.size() && !std::isdigit(str[i]))
@@ -30,7 +29,7 @@ size_t stoi(const std::string_view& str)
     return result;
 }
 
-inline bool is_combination_possible(std::array<size_t, 3> qubes)
+static inline bool is_combination_possible(std::array<size_t, 3> qubes)
 {
     return qubes[0] <= 12 && qubes[1] <= 13 && qubes[2] <= 14;
 }
@@ -45,9 +44,13 @@ int main(char argc, char* argv[])
     if (argc > 1)
         input_file.open(argv[1]);
 
-    if (input_file.is_open())
-        input_stream << input_file.rdbuf();
+    if (!input_file.is_open())
+    {
+        std::cerr << "Failed to open input file" << std::endl;
+        return 1;
+    }
 
+    input_stream << input_file.rdbuf();
     input_string = input_stream.str();
 
     input_file.close();
@@ -115,13 +118,19 @@ int main(char argc, char* argv[])
     // output shenanigans
     if (argc > 2)
     {
-        std::ofstream outputFile;
-        outputFile.open(argv[2]);
+        std::ofstream output_file;
+        output_file.open(argv[2]);
 
-        if (outputFile.is_open())
-            outputFile << "Part 1 result : " << part_1_result << std::endl << "Part 2 result : " << part_2_result << std::endl;
+        if (!output_file.is_open())
+        {
+            std::cerr << "Failed to open output file" << std::endl;
+            return 1;
+        }
 
-        outputFile.close();
+        output_file << "Part 1 result : " << part_1_result << std::endl;
+        output_file << "Part 2 result : " << part_2_result << std::endl;
+
+        output_file.close();
     }
     else
     {
