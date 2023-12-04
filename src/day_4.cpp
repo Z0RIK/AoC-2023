@@ -46,12 +46,15 @@ int main(char argc, char* argv[])
         current_score = 0;
         winning_set = false;
 
+        // search for winning set of numbers
         auto it = std::find(str.begin(), str.end(), ':');
         while (*it != '|')
         {
+            // search for first digit of next number
             while (std::isspace(*it) || *it == ':')
                 it++;
 
+            // convert string to integer and set corresponding bit to true
             size_t number = 0;
             while (std::isdigit(*it))
             {
@@ -63,6 +66,7 @@ int main(char argc, char* argv[])
                 winning_set.set(number);
         }
 
+        // compare numbers we have to winning set for current card
         while (it != str.end())
         {
             while (it != str.end() && std::isspace(*it) || *it == '|')
@@ -76,6 +80,7 @@ int main(char argc, char* argv[])
                 it++;
             }
 
+            // check if current number is present in winning set of numbers
             if (winning_set[number])
             {
                 if (!current_score)
@@ -83,6 +88,7 @@ int main(char argc, char* argv[])
                 else
                     current_score <<= 1;
 
+                // count number of matches for part 2
                 amount_of_matches.back()++;
             }
         }
@@ -90,14 +96,14 @@ int main(char argc, char* argv[])
         part_1_result += current_score;
     }
 
-
+    // part 2. pop card id from stack, increment result and push in two stack ids of next cards that we win from current one
     while (!cards.empty())
     {
         size_t current_card = cards.top();
         cards.pop();
 
         part_2_result++;
-    
+
         for(size_t i = current_card; i < current_card + amount_of_matches[current_card]; i++)
             cards.push(i + 1);
     }
