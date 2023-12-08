@@ -144,6 +144,8 @@ int main(char argc, char* argv[])
         std::getline(input_file, input.back());
     }
 
+    input_file.close();
+
     // parsing input
     for(auto& str : input)
     {
