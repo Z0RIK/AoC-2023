@@ -165,6 +165,8 @@ int main(char argc, char* argv[])
         return 1;
     }
 
+    input_file.close();
+
     std::vector<size_t> seeds;
 
     for (size_t i = 0; i < input[0].size(); i++)
