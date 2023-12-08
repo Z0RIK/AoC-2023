@@ -34,6 +34,8 @@ int main(char argc, char* argv[])
         if (input.back() == "") input.pop_back();
     }
 
+    input_file.close();
+
     std::vector<size_t> times;
     std::vector<size_t> distances;
     std::string part_2_time;
