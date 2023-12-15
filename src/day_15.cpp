@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <array>
 #include <string>
 #include <algorithm>
 
@@ -15,8 +16,10 @@ uint8_t get_hash(const std::string& str)
     return hash;
 }
 
-struct Box
+class Box
 {
+public:
+
     void add(const std::string& label, const uint8_t& focal_length)
     {
         auto it = find(label);
@@ -81,7 +84,7 @@ int main(char argc, char* argv[])
 
     size_t part_1_result = 0;
     size_t part_2_result = 0;
-    std::vector<Box> boxes(256);
+    std::array<Box, 256> boxes = { Box() };
     
     // part 1
     for(const auto& str : input)
